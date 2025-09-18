@@ -26,6 +26,16 @@ std::array<uint32_t, 8> bubble_sort_and_hash(std::vector<char>& arr, std::array<
     return seed;
 }
 
+//salt (16 baitų)
+std::vector<uint8_t> make_salt(const std::string& msg) { 
+    std::vector<uint8_t> salt(16, 0); //sukuriam tusc salt
+    for (size_t i = 0; i < msg.size(); i++) {
+        //kiekviena raida imaisom i viena is 16 baitu (ASCII + pozicija*13), 0xFF kad nevirsytu 255
+        salt[i % 16] = (salt[i % 16] + (uint8_t)msg[i] + (i * 13)) & 0xFF;
+    }
+    return salt;
+}
+
 int main() {
     std::string msg ="slaptazodis jfvsdj";
 
