@@ -26,7 +26,7 @@ std::array<uint32_t, 8> bubble_sort_and_hash(std::vector<char>& arr, std::array<
     return seed;
 }
 
-//salt (16 baitų)
+//salt (16 baitu)
 std::vector<uint8_t> make_salt(const std::string& msg) { 
     std::vector<uint8_t> salt(16, 0); //sukuriam tusc salt
     for (size_t i = 0; i < msg.size(); i++) {
@@ -44,11 +44,28 @@ std::string bytes_to_hex(const std::vector<uint8_t>& v) {
     return ss.str();
 }
 
+//hash pavertimas i hex
+std::string hash_to_hex(const std::array<uint32_t, 8>& h) {
+    std::ostringstream ss;
+    ss << std::hex << std::setfill('0');
+    for (uint32_t part : h) {
+        ss<< std::setw(8) << part;
+    }
+    return ss.str();
+}
+
 int main() {
     std::string msg ="slaptazodis jfvsdj";
 
-    //i simboliu vekt
-    std::vector<char> data(msg.begin(), msg.end());
+    //salt
+    auto salt= make_salt(msg);
+    std::cout<< "Generated salt (hex): " << bytes_to_hex(salt) << "\n";
+
+    //data = salt + msg
+    std::vector<char> data;
+    data.reserve(salt.size() + msg.size());
+    for (uint8_t b : salt) data.push_back((char)b);
+    data.insert(data.end(), msg.begin(), msg.end());
     
     //seed: 8 reiksmes po 32 bitus
     std::array<uint32_t, 8> seed = {
@@ -68,16 +85,8 @@ int main() {
     //atspausdinam originalu stringa
     std::cout<< "Original: " << msg << "\n";
 
-    //salt
-    auto salt= make_salt(msg);
-    std::cout<< "Generated salt (hex): " << bytes_to_hex(salt) << "\n";
-
     //spausdinam galutini 256-bit hash
-    std::ostringstream ss;
-    for (uint32_t part : h) {
-        ss<<std::hex << std::setfill('0') << std::setw(8) << part;
-    }
-    std::cout<< "Custom hash (256-bit hex): " << ss.str() << "\n";
+    std::cout<< "Custom hash (256-bit hex): "<< hash_to_hex(h) << "\n";
 
     return 0;
 }
