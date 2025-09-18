@@ -16,7 +16,7 @@ std::array<uint32_t, 8> bubble_sort_and_hash(std::vector<char>& arr, std::array<
                 unsigned int a = (unsigned char)arr[j];
                 unsigned int b = (unsigned char)arr[j+1];
 
-                int idx = j % 8; //pasirenkam, kurįi 32-bit bloka keisti
+                int idx = j % 8; //pasirenkam, kuri 32-bit bloka keisti
                 seed[idx] = (seed[idx] << 5) + (seed[idx] >> 3) + (a * 17 + b * 31 + j * 13);
 
                 std::swap(arr[j], arr[j+1]);
@@ -31,9 +31,6 @@ int main() {
 
     //i simboliu vekt
     std::vector<char> data(msg.begin(), msg.end());
-
-    //atspausdinam pradinio stringo ASCII reikšmes
-    std::cout << "Original: " << msg << "\n";
     
     //seed: 8 reiksmes po 32 bitus
     std::array<uint32_t, 8> seed = {
@@ -50,11 +47,8 @@ int main() {
     //paleidziam bubble sort su hash skaiciavimu
     auto h = bubble_sort_and_hash(data, seed);
 
-    //atspausdinam surikiuota stringa
+    //atspausdinam originalu stringa
     std::cout << "Original: " << msg << "\n";
-    std::cout << "Sorted:   ";
-    for (char c : data) std::cout << c;
-    std::cout << "\n";
 
     // spausdinam galutinį 256-bit hash
     std::ostringstream ss;
