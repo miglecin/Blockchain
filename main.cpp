@@ -4,6 +4,7 @@
 #include <utility>
 #include <sstream>
 #include <iomanip>
+#include <fstream>
 
 //bubble sort (rikiuoja pagal baito reikšmę) su hash skaiciavimu per swap'us (256 bit)
 std::array<uint32_t, 8> bubble_sort_and_hash(std::vector<char>& arr, std::array<uint32_t, 8> seed) {
@@ -55,11 +56,13 @@ std::string hash_to_hex(const std::array<uint32_t, 8>& h) {
 }
 
 int main() {
-    std::string msg ="slaptazodis jfvsdj";
+    std::ifstream in("input.txt"); 
+    std::stringstream buffer;
+    buffer << in.rdbuf();           //visa turini i bufferi
+    std::string msg = buffer.str(); //paverciam i string
 
     //salt
     auto salt= make_salt(msg);
-    std::cout<< "Generated salt (hex): " << bytes_to_hex(salt) << "\n";
 
     //data = salt + msg
     std::vector<char> data;
@@ -82,11 +85,16 @@ int main() {
     //paleidziam bubble sort su hash skaiciavimu
     auto h= bubble_sort_and_hash(data, seed);
 
-    //atspausdinam originalu stringa
-    std::cout<< "Original: " << msg << "\n";
+    std::ofstream out("results.txt");
+    if (!out) {
+        std::cerr << "Klaida: nepavyko sukurti results.txt\n";
+        return 1;
+    }
+    out << "Original (from file): " << msg << "\n";
+    out << "Generated salt (hex): " << bytes_to_hex(salt) << "\n";
+    out << "Custom hash (256-bit hex): " << hash_to_hex(h) << "\n";
 
-    //spausdinam galutini 256-bit hash
-    std::cout<< "Custom hash (256-bit hex): "<< hash_to_hex(h) << "\n";
+    std::cout << "Rezultatai issaugoti i results.txt\n";
 
     return 0;
 }
