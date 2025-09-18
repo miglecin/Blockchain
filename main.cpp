@@ -21,14 +21,32 @@ int main() {
     //i simboliu vekt
     std::vector<char> data(msg.begin(), msg.end());
 
+    //atspausdinam pradinio stringo ASCII reikšmes
+    std::cout << "Original: " << msg << "\n";
+    std::cout << "Original ASCII: ";
+    for (char c : data) std::cout << (int)c << " ";
+    std::cout << "\n";
+
     //isrusiuojam su bubble sort
     bubble_sort(data);
 
-    //atspausdinam rezultata
+    //atspausdinam surikiuota stringa
     std::cout << "Original: " << msg << "\n";
     std::cout << "Sorted:   ";
     for (char c : data) std::cout << c;
     std::cout << "\n";
+
+    //atspausdinam surikiuoto stringo ASCII reiksmes
+    std::cout << "Sorted ASCII:   ";
+    for (char c : data) std::cout << (int)c << " ";
+    std::cout << "\n";
+
+    //Paprasta suma kaip HASH
+    int sum= 0;
+    for (char c : data) sum+= (int)c;
+
+    std::cout <<"Simple hash (sum of ASCII): " << sum << "\n";
+
 
     return 0;
 }
