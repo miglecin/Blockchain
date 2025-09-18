@@ -1,0 +1,34 @@
+# Kompiliacijos rezultatai
+*.o
+*.obj
+*.so
+*.dll
+*.exe
+*.out
+*.a
+*.lib
+
+# Katalogai
+/build/
+bin/
+Debug/
+Release/
+x64/
+x86/
+
+# IDE failai
+*.swp
+*.swo
+*.user
+*.layout
+*.depend
+*.ncb
+*.sdf
+*.opensdf
+*.vcxproj.*
+*.idea/
+*.vscode/
+
+# OS failai
+.DS_Store
+Thumbs.db
