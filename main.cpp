@@ -52,7 +52,7 @@ int main() {
     for (char c : data) std::cout << (int)c << " ";
     std::cout << "\n";
 
-    //Paprasta suma kaip HASH(palyginimui)
+    //paprasta suma kaip HASH(palyginimui)
     int sum= 0;
     for (char c : data) sum+= (int)c;
 
@@ -61,6 +61,10 @@ int main() {
     //custom hash priklausantis nuo bubble sort swapu
     std::cout << "Custom hash (decimal): " << h << "\n";
 
+    //hash su hex
+    std::ostringstream ss;
+    ss << std::hex<< std::setfill('0') << std::setw(8) << h;
+    std::cout << "Custom hash (hex): " << ss.str() << "\n";
     
     return 0;
 }
