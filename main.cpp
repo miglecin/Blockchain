@@ -36,6 +36,14 @@ std::vector<uint8_t> make_salt(const std::string& msg) {
     return salt;
 }
 
+//hex spausdinimas
+std::string bytes_to_hex(const std::vector<uint8_t>& v) {
+    std::ostringstream ss;
+    ss << std::hex << std::setfill('0');
+    for (uint8_t b : v) ss << std::setw(2) << (int)b;
+    return ss.str();
+}
+
 int main() {
     std::string msg ="slaptazodis jfvsdj";
 
@@ -55,17 +63,21 @@ int main() {
     };
 
     //paleidziam bubble sort su hash skaiciavimu
-    auto h = bubble_sort_and_hash(data, seed);
+    auto h= bubble_sort_and_hash(data, seed);
 
     //atspausdinam originalu stringa
-    std::cout << "Original: " << msg << "\n";
+    std::cout<< "Original: " << msg << "\n";
 
-    // spausdinam galutinį 256-bit hash
+    //salt
+    auto salt= make_salt(msg);
+    std::cout<< "Generated salt (hex): " << bytes_to_hex(salt) << "\n";
+
+    //spausdinam galutini 256-bit hash
     std::ostringstream ss;
     for (uint32_t part : h) {
-        ss << std::hex << std::setfill('0') << std::setw(8) << part;
+        ss<<std::hex << std::setfill('0') << std::setw(8) << part;
     }
-    std::cout << "Custom hash (256-bit hex): " << ss.str() << "\n";
+    std::cout<< "Custom hash (256-bit hex): " << ss.str() << "\n";
 
     return 0;
 }
