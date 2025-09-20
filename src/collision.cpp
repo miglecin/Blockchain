@@ -1,3 +1,9 @@
+//g++ -Xpreprocessor -fopenmp \
+    -I/usr/local/opt/libomp/include \
+    -L/usr/local/opt/libomp/lib \
+    -lomp -Iinclude -O3 \
+    src/collision.cpp src/hash.cpp -o collision_test
+// ./collision_test 100000      
 #include <iostream>
 #include <iomanip>
 #include <string>

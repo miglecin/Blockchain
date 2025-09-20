@@ -165,3 +165,19 @@ Tai ženkliai pagreitino skaičiavimus (ypač su ilgais stringais). Be OpenMP ek
 
 ---
 
+## LAVINOS EFEKTO EKSPERIMENTAS
+
+**Tikslas:** patikrinti, kaip pasikeičia hash rezultatas, jei įvesties eilutėje pakeičiame tik **vieną simbolį**.  
+Atlikta su **100 000 porų** (stringo ilgis = 20 simbolių).  
+
+Rezultatai:  
+
+| Matavimo lygmuo | Min  | Max    | Vidurkis |
+|-----------------|------|--------|----------|
+| Bitų lygmuo (256 bitų hash) | 0%   | 63.7%  | 45.7%   |
+| Hex lygmuo (64 simboliai)   | 0%   | 100%   | ~45–50% |
+
+**Išvados:**  
+- Vidutinis skirtumas yra apie **45–50%**, kas atitinka lavinos efekto principą – pakeitus vieną simbolį, pasikeičia maždaug pusė hash bitų.  
+- **0% minimalus skirtumas** rodo, kad kartais hash’ai sutampa arba beveik nesiskiria (galimos kolizijos).  
+- **100% maksimalus skirtumas** rodo, kad yra atvejų, kai du hash’ai skiriasi visiškai.
