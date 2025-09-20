@@ -50,9 +50,9 @@ kur:
 ## Pseudo kodai
 
 ### 1. SALT generavimas
+
 FUNKCIJA MAKE_SALT(MSG):
     SALT = {0,0,...,0} (16 baitų masyvas)
-
     CIKLAS i nuo 0 iki MSG_ilgis-1:
         idx = i MOD 16
         SALT[idx] = ( SALT[idx] + ASCII(MSG[i]) + i*13 ) MOD 256
