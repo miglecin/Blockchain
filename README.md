@@ -134,6 +134,8 @@ Kiekvienas testas kartotas 5 kartus, o žemiau pateikiamas **vidurkis**.
 | 6           | 0.6232                 |
 | 8           | 1.2418                 |
 
+![Hash algoritmo veikimo laikas](img/grafikas.png)
+
 ### Išvados
 - Laikas auga kvadratiniu greičiu didėjant įvesties ilgiui.  
 - Tai atitinka **Bubble Sort** algoritmą, kuris yra `O(n²)`.  
