@@ -55,10 +55,21 @@ std::string hash_to_hex(const std::array<uint32_t, 8>& h) {
     return ss.str();
 }
 
-int main() {
-    std::ifstream in("input.txt"); 
+int main(int argc, char** argv) {
+    if (argc < 2) {
+        std::cerr << "Naudojimas: " << argv[0] << " input-file\n";
+        return 1;
+    }
+
+    std::string infile = argv[1];
+    std::ifstream in(infile, std::ios::binary);
+    if (!in) {
+        std::cerr << "Nepavyko atidaryti failo: " << infile << "\n";
+        return 1;
+    }
+
     std::stringstream buffer;
-    buffer << in.rdbuf();           //visa turini i bufferi
+    buffer << in.rdbuf(); //visa turini i bufferi
     std::string msg = buffer.str(); //paverciam i string
 
     //salt
@@ -85,16 +96,18 @@ int main() {
     //paleidziam bubble sort su hash skaiciavimu
     auto h= bubble_sort_and_hash(data, seed);
 
-    std::ofstream out("results.txt");
-    if (!out) {
-        std::cerr << "Klaida: nepavyko sukurti results.txt\n";
-        return 1;
-    }
-    out << "Original (from file): " << msg << "\n";
-    out << "Generated salt (hex): " << bytes_to_hex(salt) << "\n";
-    out << "Custom hash (256-bit hex): " << hash_to_hex(h) << "\n";
+std::ofstream out("results.txt", std::ios::app); //append
+if (!out) {
+    std::cerr << "Klaida: nepavyko sukurti results.txt\n";
+    return 1;
+}
 
-    std::cout << "Rezultatai issaugoti i results.txt\n";
+out << "Input file: " << infile << "\n";
+out << "Original (from file): " << msg << "\n";
+out << "Generated salt (hex): " << bytes_to_hex(salt) << "\n";
+out << "Custom hash (256-bit hex): " << hash_to_hex(h) << "\n";
+out << "\n";
 
-    return 0;
+return 0;
+
 }
