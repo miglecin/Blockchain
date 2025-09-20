@@ -12,7 +12,9 @@ Tikslas: parodyti, kaip iš paprastų veiksmų galima sukonstruoti deterministin
 
 ### 1. Hash atnaujinimo formulė
 Kiekvieno **swap** metu bubble sort’e hash atnaujinamas:
+```cpp
 h = (h << 3) + (h >> 2) + (a * 17 + b * 31 + j * 13)
+```
 
 kur:
 - `h` – dabartinė hash reikšmė
@@ -35,6 +37,7 @@ Salt sudaromas iš pranešimo simbolių:
 for (size_t i = 0; i < msg.size(); i++) {
     salt[i % 16] = (salt[i % 16] + (uint8_t)msg[i] + (i * 13)) & 0xFF;
 }
+```
 
 kur:
 - i % 16 – pasirenkama, kurį iš 16 salt elementų atnaujinti.
@@ -45,5 +48,15 @@ kur:
 ---
 
 ## Pseudo kodai
+
+### 1. SALT generavimas
+FUNKCIJA MAKE_SALT(MSG):
+    SALT = {0,0,...,0} (16 baitų masyvas)
+
+    CIKLAS i nuo 0 iki MSG_ilgis-1:
+        idx = i MOD 16
+        SALT[idx] = ( SALT[idx] + ASCII(MSG[i]) + i*13 ) MOD 256
+
+    GRĄŽINTI SALT
 
 
