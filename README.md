@@ -100,3 +100,21 @@ kur:
 
 ---
 
+## EKSPERIMENTINIAI TYRIMAI
+
+### Rezultatai
+
+| Failas       | Įvestis (trumpai)                     | Hash (256-bit, 64 hex)                                                 |
+|--------------|---------------------------------------|------------------------------------------------------------------------|
+| empty.txt    | tuščias failas                        | 0002063502cf45f7057b2f840789cc4162aac918c15576bd8f0f540ae3c3c385       |
+| one_a.txt    | simbolis `a`                          | 0002c5951b40e21b352ac63c078a8ba162ab8878c156361d8f0e6c25e3c3d679       |
+| one_b.txt    | simbolis `b`                          | 0002c7c81b88cf5235b71772078a8dd462ab8aabc15638508f0e725ce3c3d66a       |
+| random1.txt  | >1000 atsitiktinių simbolių           | 872d9dcfb5e4b0351fdd173d5b47246f7210a7e4ff293ea3fe3a7fa056b942b9       |
+| random2.txt  | >1000 atsitiktinių simbolių, skiriasi 1 simboliu | 41bd2ca244096d234bdc93744192f2f7ca79ca5f4ad33a91f88e5f916fb1f514 |
+
+---
+
+### Išvados
+- **Fiksuotas ilgis**: visų rezultatų ilgis vienodas (64 hex simboliai).  
+- **Deterministiškumas**: tas pats failas duoda tą patį hash’ą.  
+- **Avalanšo efektas**: net 1 simbolio skirtumas (`random1.txt` vs `random2.txt`) kardinaliai pakeičia hash.
