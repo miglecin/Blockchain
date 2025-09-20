@@ -146,3 +146,22 @@ Kiekvienas testas kartotas 5 kartus, o žemiau pateikiamas **vidurkis**.
 
 ## KOLIZIJŲ PAIEŠKA
 
+
+Sugeneruota po **100 000 atsitiktinių stringų porų** skirtingo ilgio (10, 100, 500, 1000 simbolių).
+Patikrinta, ar jų hash’ai sutampa.
+
+Šis eksperimentas buvo atliktas naudojant **OpenMP**.
+Kiekviena gija sugeneruodavo savo atsitiktinių stringų poras ir skaičiavo jų hash’us, o rezultatai buvo apjungti.  
+Tai ženkliai pagreitino skaičiavimus (ypač su ilgais stringais). Be OpenMP eksperimentas būtų trukęs kelis kartus ilgiau.
+
+| Ilgis (len) | Porų skaičius | Kolizijų skaičius | Kolizijų dažnis | Laikas (s) |
+|-------------|---------------|-------------------|-----------------|------------|
+| 10          | 100 000       | 0                 | 0               | 0.033      |
+| 100         | 100 000       | 0                 | 0               | 0.448      |
+| 500         | 100 000       | 0                 | 0               | 6.633      |
+| 1000        | 100 000       | 0                 | 0               | 28.005     |
+
+**Išvada:** kolizijų nerasta. Laikas auga labai sparčiai, nes bubble sort yra O(n²).
+
+---
+
