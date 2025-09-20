@@ -117,4 +117,26 @@ kur:
 ### Išvados
 - **Fiksuotas ilgis**: visų rezultatų ilgis vienodas (64 hex simboliai).  
 - **Deterministiškumas**: tas pats failas duoda tą patį hash’ą.  
-- **Avalanšo efektas**: net 1 simbolio skirtumas (`random1.txt` vs `random2.txt`) kardinaliai pakeičia hash.
+- **Lavinos efektas**: net 1 simbolio skirtumas (`random1.txt` vs `random2.txt`) kardinaliai pakeičia hash.
+
+---
+
+## EFEKTYVUMO TYRIMAI
+
+Hash algoritmo veikimo laikas buvo pamatuotas su skirtingu eilučių kiekiu iš failo `konstitucija.txt`.  
+Kiekvienas testas kartotas 5 kartus, o žemiau pateikiamas **vidurkis**.
+
+| Eilučių sk. | Vidutinis laikas (ms) |
+|-------------|------------------------|
+| 1           | 0.0601                 |
+| 2           | 0.1443                 |
+| 4           | 0.3726                 |
+| 6           | 0.6232                 |
+| 8           | 1.2418                 |
+
+### Išvados
+- Laikas auga kvadratiniu greičiu didėjant įvesties ilgiui.  
+- Tai atitinka **Bubble Sort** algoritmą, kuris yra `O(n²)`.  
+- Net su palyginti nedideliais duomenimis (8 eilutės), laikas padidėjo ~20× lyginant su 1 eilute.
+
+---
