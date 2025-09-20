@@ -6,6 +6,7 @@
 #include <iomanip>
 #include <fstream>
 #include "hash.h"
+#include "timer.h"
 
 
 int main(int argc, char** argv) {
@@ -47,7 +48,10 @@ int main(int argc, char** argv) {
     };
 
     //paleidziam bubble sort su hash skaiciavimu
+    Timer t;  //paleidziam laikmati
     auto h= bubble_sort_and_hash(data, seed);
+    double duration = t.elapsed_ms();  // paimam laika ms
+
 
 std::ofstream out("results.txt", std::ios::app); //append
 if (!out) {
@@ -59,6 +63,7 @@ out << "Input file: " << infile << "\n";
 out << "Original (from file): " << msg << "\n";
 out << "Generated salt (hex): " << bytes_to_hex(salt) << "\n";
 out << "Custom hash (256-bit hex): " << hash_to_hex(h) << "\n";
+out << "Hash calculation time: " << duration << " ms\n";
 out << "\n";
 
 return 0;

@@ -134,6 +134,7 @@ Kiekvienas testas kartotas 5 kartus, o žemiau pateikiamas **vidurkis**.
 | 6           | 0.6232                 |
 | 8           | 1.2418                 |
 
+
 ![Hash algoritmo veikimo laikas](img/grafikas.png)
 
 ### Išvados
@@ -142,3 +143,6 @@ Kiekvienas testas kartotas 5 kartus, o žemiau pateikiamas **vidurkis**.
 - Net su palyginti nedideliais duomenimis (8 eilutės), laikas padidėjo ~20× lyginant su 1 eilute.
 
 ---
+
+## KOLIZIJŲ PAIEŠKA
+
