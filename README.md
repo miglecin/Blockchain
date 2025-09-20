@@ -1,6 +1,6 @@
 # Blockchain
 
-## Aprašymas
+## APRAŠYMAS
 Šiame projekte realizuota paprasta **hash funkcija**, paremta:
 - **SALT generavimu** – iš pranešimo simbolių sukuriamas 16 baitų masyvas.
 - **Bubble sort** – duomenys (salt + pranešimas) rikiuojami, o kiekvieno swap metu atnaujinamas hash.
@@ -8,7 +8,7 @@
 Tikslas: parodyti, kaip iš paprastų veiksmų galima sukonstruoti deterministinę, fiksuoto ilgio hash funkciją.
 
 ---
-## Algoritmo detalės
+## ALGORITMO DETALĖS
 
 ### 1. Hash atnaujinimo formulė
 Kiekvieno **swap** metu bubble sort’e hash atnaujinamas:
@@ -47,7 +47,7 @@ kur:
 
 ---
 
-## Pseudo kodai
+## PSEUDO KODAI
 
 > **Salt generavimas**
 >
@@ -61,8 +61,6 @@ kur:
 >
 >     GRĄŽINTI SALT
 > ```
-
----
 
 > **Bubble sort su hash atnaujinimu**
 >
@@ -86,8 +84,6 @@ kur:
 >     GRĄŽINTI STATE
 > ```
 
----
-
 > **Pagrindinė programa**
 >
 > ```text
@@ -101,3 +97,6 @@ kur:
 >
 > HASH <- BUBBLE_SORT_AND_HASH(DATA, STATE)
 > ```
+
+---
+
