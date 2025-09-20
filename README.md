@@ -61,3 +61,43 @@ kur:
 >
 >     GRĄŽINTI SALT
 > ```
+
+---
+
+> **Bubble sort su hash atnaujinimu**
+>
+> ```text
+> FUNKCIJA BUBBLE_SORT_AND_HASH(DATA, STATE[8]):
+>     n = DATA_ilgis
+>
+>     CIKLAS i nuo 0 iki n-2:
+>         CIKLAS j nuo 0 iki n-2-i:
+>             JEI DATA[j] > DATA[j+1]:
+>                 a = ASCII(DATA[j])
+>                 b = ASCII(DATA[j+1])
+>                 idx = j MOD 8
+>
+>                 STATE[idx] = (STATE[idx] << 5)
+>                              + (STATE[idx] >> 3)
+>                              + (a*17 + b*31 + j*13)
+>
+>                 sukeisti DATA[j] ir DATA[j+1]
+>
+>     GRĄŽINTI STATE
+> ```
+
+---
+
+> **Pagrindinė programa**
+>
+> ```text
+> MSG <- perskaityti visą tekstą iš failo
+> SALT <- MAKE_SALT(MSG)
+>
+> DATA <- SALT || MSG   // pirmiausia salt, po to pranešimas
+>
+> STATE[0..7] <- inicializuoti pagal MSG
+>                (ilgis, pirmas simbolis, paskutinis simbolis, konstantos)
+>
+> HASH <- BUBBLE_SORT_AND_HASH(DATA, STATE)
+> ```
