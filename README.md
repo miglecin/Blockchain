@@ -175,9 +175,10 @@ Rezultatai:
 | Matavimo lygmuo | Min  | Max    | Vidurkis |
 |-----------------|------|--------|----------|
 | Bitų lygmuo (256 bitų hash) | 0%   | 63.7%  | 45.7%   |
-| Hex lygmuo (64 simboliai)   | 0%   | 100%   | ~45–50% |
+| Hex lygmuo (64 simboliai)   | 0%   | 100%   | 85.7% |
 
 **Išvados:**  
-- Vidutinis skirtumas yra apie **45–50%**, kas atitinka lavinos efekto principą – pakeitus vieną simbolį, pasikeičia maždaug pusė hash bitų.  
-- **0% minimalus skirtumas** rodo, kad kartais hash’ai sutampa arba beveik nesiskiria (galimos kolizijos).  
-- **100% maksimalus skirtumas** rodo, kad yra atvejų, kai du hash’ai skiriasi visiškai.
+- **Bitų lygmuo (~45–50%)** rodo, kad algoritmas turi lavinos efektą – pakeitus vieną simbolį, pasikeičia apie pusė hash bitų.  
+- **Hex lygmuo (~85%)** yra didesnis, nes skaičiuojamas pagal viso hex simbolio (4 bitų) pasikeitimą – todėl jis iškreipia tikrąją statistiką.
+- **Min=0%** rodo, kad kai kuriose porose hash’ai nesiskyrė → galimos kolizijos.  
+- **Max arti 100%** rodo, kad kartais hash’ai skiriasi visiškai.
