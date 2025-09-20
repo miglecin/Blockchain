@@ -1,0 +1,36 @@
+=== empty.txt ===
+Input file: /Users/miglecincikaite/Desktop/blockchain/hash/input/empty.txt
+Original (from file): 
+
+Generated salt (hex): 0a000000000000000000000000000000
+Custom hash (256-bit hex): 0002063502cf45f7057b2f840789cc4162aac918c15576bd8f0f540ae3c3c385
+
+
+=== one_a.txt ===
+Input file: /Users/miglecincikaite/Desktop/blockchain/hash/input/one_a.txt
+Original (from file): a
+Generated salt (hex): 61000000000000000000000000000000
+Custom hash (256-bit hex): 0002c5951b40e21b352ac63c078a8ba162ab8878c156361d8f0e6c25e3c3d679
+
+
+=== one_b.txt ===
+Input file: /Users/miglecincikaite/Desktop/blockchain/hash/input/one_b.txt
+Original (from file): b
+Generated salt (hex): 62000000000000000000000000000000
+Custom hash (256-bit hex): 0002c7c81b88cf5235b71772078a8dd462ab8aabc15638508f0e725ce3c3d66a
+
+
+=== random1.txt ===
+Input file: /Users/miglecincikaite/Desktop/blockchain/hash/input/random1.txt
+Original (from file): eTX0BiqN2C9OmywqKkf7Gd6vzE3rsZxWMh8JpF1jYLt5VRnbcPo4alUeQSgHZDKiR7XjB2fmN9q0T6wCyvM8kpFo3drzE5shW1G7VnbxLPyQ4UjKcO2iZfTqS0RmHD8ez5aMgkN3WYlJXpVtF6Q7D9hUo1sCwAyEZR2v8LbmKj5xPfnG0dz3TiXq4H7VckN6F1R8lYyQpUjM2hS9aZ0wo3GEdB5vLnK7fTqP8rxC4DmF1Jp9XyQ2UhZ6aVtM0o7gN5bW3iK8zHcS4Rj1L9qf2PeXyD0Tk6UvM3w7nC5Zo8H1BR2h9aVJ4pN0sF3GqX6yL8dK7Wj5mT2oP1z9QvU4gR0cA6bxH5iY7Ew3Sf2nM8Dk1lZp9Vt0oN4jQ6rC7uF5yP2X8gW3
+Generated salt (hex): fabde58cc9fd792d45eb88b3380ffe7b
+Custom hash (256-bit hex): 872d9dcfb5e4b0351fdd173d5b47246f7210a7e4ff293ea3fe3a7fa056b942b9
+
+
+=== random2.txt ===
+Input file: /Users/miglecincikaite/Desktop/blockchain/hash/input/random2.txt
+Original (from file): aTX0BiqN2C9OmywqKkf7Gd6vzE3rsZxWMh8JpF1jYLt5VRnbcPo4alUeQSgHZDKiR7XjB2fmN9q0T6wCyvM8kpFo3drzE5shW1G7VnbxLPyQ4UjKcO2iZfTqS0RmHD8ez5aMgkN3WYlJXpVtF6Q7D9hUo1sCwAyEZR2v8LbmKj5xPfnG0dz3TiXq4H7VckN6F1R8lYyQpUjM2hS9aZ0wo3GEdB5vLnK7fTqP8rxC4DmF1Jp9XyQ2UhZ6aVtM0o7gN5bW3iK8zHcS4Rj1L9qf2PeXyD0Tk6UvM3w7nC5Zo8H1BR2h9aVJ4pN0sF3GqX6yL8dK7Wj5mT2oP1z9QvU4gR0cA6bxH5iY7Ew3Sf2nM8Dk1lZp9Vt0oN4jQ6rC7uF5yP2X8gW3
+Generated salt (hex): f6bde58cc9fd792d45eb88b3380ffe7b
+Custom hash (256-bit hex): 41bd2ca244096d234bdc93744192f2f7ca79ca5f4ad33a91f88e5f916fb1f514
+
+
