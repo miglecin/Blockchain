@@ -49,13 +49,15 @@ kur:
 
 ## Pseudo kodai
 
-### 1. SALT generavimas
-
-> **Pseudo kodas: Salt generavimas**
+> **Salt generavimas**
 >
 > ```text
 > FUNKCIJA MAKE_SALT(MSG):
 >     SALT = {0,0,...,0}
->     ...
->     GRĄŽINTI SALT
+
+    CIKLAS i nuo 0 iki MSG_ilgis-1:
+        idx = i MOD 16
+        SALT[idx] = ( SALT[idx] + ASCII(MSG[i]) + i*13 ) MOD 256
+
+    GRĄŽINTI SALT
 > `
