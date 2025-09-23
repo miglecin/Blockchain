@@ -197,3 +197,17 @@ Gauname hash: 4e73cfa552ea40a6052b481c8770d00b663d26bd2a32a502370eb811aea2190f
 - Net jei turime hash ir salt, nėra greito būdo atsukti procesą ir gauti pradinį tekstą (**puzzle-friendliness**).  
 - Tai rodo **negrįžtamumą**: hash funkcija yra vienkryptė.
 
+----
+
+## IŠVADOS:
+
+### Stiprybės
+- Sukurtas hash algoritmas visada duoda tą patį rezultatą iš tos pačios įvesties, todėl jis yra patikimai **deterministinis**.  
+- Atlikti bandymai parodė aiškų **lavinos efektą** – pakeitus tik vieną simbolį, visas hash rezultatas stipriai pasikeičia.  
+- Hash išvestis atrodo kaip atsitiktinis skaičių rinkinys, todėl praktiškai **neįmanoma atspėti pradinio teksto vien tik iš hash’o**.  
+- Įmaišomas **salt** papildomai apsunkina hash atspėjimą, nes net ta pati žinutė gali turėti skirtingą hash.
+
+### Silpnybės
+- Mano sugalvotas hash paremtas **bubble sort algoritmu**, kuris nėra efektyvus. Dideliems failams skaičiavimas tampa labai lėtas.  
+- Naudojamas **deterministinis salt** (apskaičiuotas iš pačios žinutės), todėl jis neatlieka tikros atsitiktinės druskos funkcijos, kaip naudojama realiose saugumo sistemose.  
+- Teoriškai galimos **kolizijos** (skirtingos žinutės gali duoti tą patį hash), nors testuose jų beveik nepastebėta.
