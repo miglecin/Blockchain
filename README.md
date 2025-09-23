@@ -182,3 +182,18 @@ Rezultatai:
 - **Hex lygmuo (~85%)** yra didesnis, nes skaičiuojamas pagal viso hex simbolio (4 bitų) pasikeitimą – todėl jis iškreipia tikrąją statistiką.
 - **Min=0%** rodo, kad kai kuriose porose hash’ai nesiskyrė → galimos kolizijos.  
 - **Max arti 100%** rodo, kad kartais hash’ai skiriasi visiškai.
+
+---
+
+## NEGRĮŽTAMUMO DEMONSTRACIJA (Hiding / Puzzle-friendliness)
+
+Paleidus programą su failu `input/negriztamas.txt` (turinčiu tekstą `negriztamas`):
+
+Gauname hash: 4e73cfa552ea40a6052b481c8770d00b663d26bd2a32a502370eb811aea2190f
+
+**Išvados:**
+- Iš hash’o neįmanoma atspėti, jog pradinis tekstas buvo `negriztamas`.  
+- Pakeitus vieną simbolį (`negriztamas1`) hash pasikeičia: ea01459beb53c8fae646162629330ea571d3c8035684168e966c033052b47ee1(lavinos efektas).  
+- Net jei turime hash ir salt, nėra greito būdo atsukti procesą ir gauti pradinį tekstą (**puzzle-friendliness**).  
+- Tai rodo **negrįžtamumą**: hash funkcija yra vienkryptė.
+
