@@ -3,7 +3,7 @@
 #include <iomanip>
 #include <utility>
 
-//bubble sort (rikiuoja pagal baito reikšmę) su hash skaiciavimu per swap'us (256 bit)
+//bubble sort (rikiuoja pagal baito reiksme) su hash skaiciavimu per swap'us (256 bit)
 std::array<uint32_t, 8> bubble_sort_and_hash(std::vector<char>& arr, std::array<uint32_t, 8> seed) {
     int n = (int)arr.size();
 
