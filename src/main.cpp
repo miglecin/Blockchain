@@ -1,3 +1,7 @@
+//make
+//./run_all.sh
+//./hash_program input/random1.txt
+//./hash_program input/negriztamas.txt
 #include <iostream>
 #include <string>
 #include <vector>

@@ -20,18 +20,18 @@ kur:
 - `h` – dabartinė hash reikšmė
 - `(h << 3)` – hash pastumtas į kairę per 3 bitus (padaugintas iš 8)
 - `(h >> 2)` – hash pastumtas į dešinę per 2 bitus (padalintas iš 4)
-- `a`, `b` – sukeitamų simbolių ASCII kodai
+- `a`, `b` – sukeičiamų simbolių ASCII kodai
 - `j` – jų pozicija masyve
 - konstantos `17`, `31`, `13` – parinktos tam, kad padidintų rezultatų įvairovę
 
 ### Kodėl tai svarbu?
 - Be bubble sort – hash beveik nekistų.
-- Su bubble sort – kiekvienas swap „įmaišo“ naują informaciją, todėl hash priklauso ne tik nuo simbolių, bet ir nuo jų tvarkos.
+- Su bubble sort – kiekvienas swap įmaišo naują informaciją, todėl hash priklauso ne tik nuo simbolių, bet ir nuo jų tvarkos.
 
 ---
 
 ### 2. SALT generavimas
-Salt sudaromas iš pranešimo simbolių:
+Salt sudaromas iš įvesties simbolių:
 
 ```cpp
 for (size_t i = 0; i < msg.size(); i++) {
@@ -92,7 +92,7 @@ kur:
 >
 > DATA <- SALT || MSG   // pirmiausia salt, po to pranešimas
 >
-> STATE[0..7] <- inicializuoti pagal MSG
+> STATE[0..7] <- inicializuoti pagal MSG - seed
 >                (ilgis, pirmas simbolis, paskutinis simbolis, konstantos)
 >
 > HASH <- BUBBLE_SORT_AND_HASH(DATA, STATE)

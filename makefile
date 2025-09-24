@@ -2,7 +2,7 @@ CXX = g++
 CXXFLAGS = -Wall -Iinclude
 TARGET = hash_program
 
-SRCS = $(wildcard src/*.cpp)
+SRCS = src/main.cpp src/hash.cpp
 OBJS = $(SRCS:.cpp=.o)
 
 all: $(TARGET)

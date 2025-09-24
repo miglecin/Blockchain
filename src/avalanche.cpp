@@ -9,7 +9,7 @@
 #include <sstream>
 #include "hash.h"
 
-// Sugeneruoja atsitiktinį ASCII stringą
+//sugeneruoja atsitiktinį ASCII stringą
 static std::string random_ascii(size_t len, std::mt19937_64& rng) {
     std::uniform_int_distribution<int> dist(32, 126);
     std::string s(len, ' ');
