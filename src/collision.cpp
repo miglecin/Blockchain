@@ -1,9 +1,9 @@
 //g++ -Xpreprocessor -fopenmp \
     -I/usr/local/opt/libomp/include \
     -L/usr/local/opt/libomp/lib \
-    -lomp -Iinclude -O3 \
-    src/collision.cpp src/hash.cpp -o collision_test
-// ./collision_test 100000      
+   -lomp -Iinclude -O3 \
+    src/collision.cpp src/hash.cpp -o collision_test -lcrypto -Wno-deprecated-declarations
+// ./collision_test 100000        
 #include <iostream>
 #include <iomanip>
 #include <string>
@@ -15,7 +15,10 @@
 #include <cstdint>
 
 #include <omp.h>        //OpenMP header
-#include "hash.h"       
+#include <openssl/md5.h>
+#include <openssl/sha.h>
+#include "hash.h"   
+    
 
 //Sugeneruoja atsitiktini ASCII stringa [32..126]
 static std::string random_ascii(size_t len, std::mt19937_64& rng) {
@@ -28,7 +31,7 @@ static std::string random_ascii(size_t len, std::mt19937_64& rng) {
     return s;
 }
 
-// Apskaičiuoja 256-bit hash (kaip 8x uint32_t) pagal funkcijas
+//Mano hash (256-bit)
 static std::array<uint32_t,8> hash256(const std::string& msg) {
     auto salt = make_salt(msg);
     std::vector<char> data;
@@ -50,6 +53,32 @@ static std::array<uint32_t,8> hash256(const std::string& msg) {
     return bubble_sort_and_hash(data, seed);
 }
 
+// Hash helper: convert raw bytes to std::string
+static std::string bytes_to_string(const unsigned char* data, size_t len) {
+    return std::string(reinterpret_cast<const char*>(data), len);
+}
+
+// MD5
+static std::string md5_hash(const std::string& input) {
+    unsigned char digest[MD5_DIGEST_LENGTH];
+    MD5((unsigned char*)input.c_str(), input.size(), digest);
+    return bytes_to_string(digest, MD5_DIGEST_LENGTH);
+}
+
+// SHA-1
+static std::string sha1_hash(const std::string& input) {
+    unsigned char digest[SHA_DIGEST_LENGTH];
+    SHA1((unsigned char*)input.c_str(), input.size(), digest);
+    return bytes_to_string(digest, SHA_DIGEST_LENGTH);
+}
+
+// SHA-256
+static std::string sha256_hash(const std::string& input) {
+    unsigned char digest[SHA256_DIGEST_LENGTH];
+    SHA256((unsigned char*)input.c_str(), input.size(), digest);
+    return bytes_to_string(digest, SHA256_DIGEST_LENGTH);
+}
+
 struct Result { 
     size_t len; 
     uint64_t pairs; 
@@ -57,13 +86,12 @@ struct Result {
     double secs; 
 };
 
-static Result test_len(size_t len, uint64_t pairs, uint64_t seed0) {
-    //Bubble sort O(n^2)
+// Tikrina kolizijas pasirinktam algoritmui
+template<typename F>
+static Result test_len(const std::string& name, F hash_func, size_t len, uint64_t pairs, uint64_t seed0) {
     auto t0 = std::chrono::high_resolution_clock::now();
+    uint64_t coll = 0;
 
-    uint64_t coll = 0; // skaitiklis koliziju
-
-    // Pasidalinam darbą tarp gijų
     #pragma omp parallel
     {
         std::mt19937_64 rng(seed0 ^ (0x9E3779B97F4A7C15ull * (omp_get_thread_num()+1)));
@@ -74,8 +102,8 @@ static Result test_len(size_t len, uint64_t pairs, uint64_t seed0) {
             std::string a = random_ascii(len, rng);
             std::string b = random_ascii(len, rng);
 
-            auto ha = hash256(a);
-            auto hb = hash256(b);
+            auto ha = hash_func(a);
+            auto hb = hash_func(b);
 
             if (ha == hb) ++local_coll;
         }
@@ -86,7 +114,6 @@ static Result test_len(size_t len, uint64_t pairs, uint64_t seed0) {
 
     auto t1 = std::chrono::high_resolution_clock::now();
     std::chrono::duration<double> d = t1 - t0;
-
     return Result{len, pairs, coll, d.count()};
 }
 
@@ -102,13 +129,30 @@ int main(int argc, char** argv) {
 
     std::cout << "Collision search (pairs per length = " << pairs
               << ", seed=" << seed0 << ")\n";
-    std::cout << "len,pairs,collisions,rate,seconds\n";
+    std::cout << "algo,len,pairs,collisions,rate,seconds\n";
 
     for (size_t L : lengths) {
-        auto r = test_len(L, pairs, seed0 + L);
-        double rate = (r.pairs == 0) ? 0.0 : (double)r.collisions / (double)r.pairs;
-        std::cout << r.len << "," << r.pairs << "," << r.collisions << ","
-                  << std::setprecision(8) << rate << "," << r.secs << "\n";
+        // Mano hash
+        auto r1 = test_len("MyHash", [](const std::string& s){
+            return bytes_to_string((unsigned char*)hash_to_hex(hash256(s)).c_str(), 64);
+        }, L, pairs, seed0 + L);
+        std::cout << "MyHash," << r1.len << "," << r1.pairs << "," << r1.collisions << ","
+                  << std::setprecision(8) << (double)r1.collisions/r1.pairs << "," << r1.secs << "\n";
+
+        // MD5
+        auto r2 = test_len("MD5", md5_hash, L, pairs, seed0 + L);
+        std::cout << "MD5," << r2.len << "," << r2.pairs << "," << r2.collisions << ","
+                  << std::setprecision(8) << (double)r2.collisions/r2.pairs << "," << r2.secs << "\n";
+
+        // SHA-1
+        auto r3 = test_len("SHA1", sha1_hash, L, pairs, seed0 + L);
+        std::cout << "SHA1," << r3.len << "," << r3.pairs << "," << r3.collisions << ","
+                  << std::setprecision(8) << (double)r3.collisions/r3.pairs << "," << r3.secs << "\n";
+
+        // SHA-256
+        auto r4 = test_len("SHA256", sha256_hash, L, pairs, seed0 + L);
+        std::cout << "SHA256," << r4.len << "," << r4.pairs << "," << r4.collisions << ","
+                  << std::setprecision(8) << (double)r4.collisions/r4.pairs << "," << r4.secs << "\n";
     }
     return 0;
 }

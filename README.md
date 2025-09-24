@@ -232,3 +232,34 @@ Rezultatai:
 **Išvados:**  
 - Mano hash parodo lavinos efektą, bet jis silpnesnis ir mažiau stabilus.  
 - Standartiniai hash algoritmai (MD5, SHA-1, SHA-256) pasižymi labai stipriu lavinos efektu (~94%).  idealiam lavinos efektu (~94%).  
+
+### Kolizijų paieška ir sparta
+
+Sugeneruojamos stringų poros (ilgio 10, 100, 500, 1000 simbolių).
+- Skaičiuojami hash’ai naudojant:
+  - mano hash algoritmą,
+  - MD5,
+  - SHA-1,
+  - SHA-256.
+- Jei hash’ai vienodi, registruojama kolizija.
+- Skaičiavimai atlikti paralelizuojant su **OpenMP**.
+
+### Rezultatai (100 000 porų kiekvienam ilgiui)
+| Algoritmas | Ilgis=10 | Ilgis=100 | Ilgis=500 | Ilgis=1000 |
+|------------|----------|-----------|-----------|------------|
+| Mano hash  | 0 kolizijų | 0 kolizijų | 0 kolizijų | 0 kolizijų |
+| MD5        | 0 kolizijų | 0 kolizijų | 0 kolizijų | 0 kolizijų |
+| SHA-1      | 0 kolizijų | 0 kolizijų | 0 kolizijų | 0 kolizijų |
+| SHA-256    | 0 kolizijų | 0 kolizijų | 0 kolizijų | 0 kolizijų |
+
+### Laiko palyginimas
+| Algoritmas | 10 simbolių | 100 simbolių | 500 simbolių | 1000 simbolių |
+|------------|-------------|--------------|--------------|---------------|
+| Mano hash  | 0.19 s      | 0.53 s       | 7.17 s       | 29.27 s       |
+| MD5        | 0.008 s     | 0.049 s      | 0.28 s       | 0.47 s        |
+| SHA-1      | 0.072 s     | 0.071 s      | 0.22 s       | 0.49 s        |
+| SHA-256    | 0.040 s     | 0.081 s      | 0.24 s       | 0.55 s        |
+
+### Išvados
+- Nei mano hash, nei MD5/SHA algoritmai nerado kolizijų tarp 100 000 atsitiktinių porų (ilgiui iki 1000).  
+- Mano hash yra daug **lėtesnis** (dėl `O(n²)` bubble sort), tačiau kolizijų atžvilgiu pasirodė panašiai kaip standartiniai algoritmai.
