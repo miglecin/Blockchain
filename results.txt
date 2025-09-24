@@ -1,0 +1,9 @@
+Input file: input/negriztamas.txt
+Original (from file): negriztamas1
+Generated salt (hex): 6e7281999dbbc2bcd5d6f5c000000000
+Custom hash (256-bit hex): ea01459beb53c8fae646162629330ea571d3c8035684168e966c033052b47ee1
+Hash calculation time: 0.006923 ms
+MD5: 0c7e574ab62718e44053d91248d57dca
+SHA-1: fb1f3c0c64be91457d950764b2336cbbac3a9fc9
+SHA-256: 6e5c9c08484cefe0b1ebef983c090620e7fdebaa062f7504124a26773f057ff5
+

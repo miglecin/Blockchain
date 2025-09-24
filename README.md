@@ -263,3 +263,20 @@ Sugeneruojamos stringų poros (ilgio 10, 100, 500, 1000 simbolių).
 ### Išvados
 - Nei mano hash, nei MD5/SHA algoritmai nerado kolizijų tarp 100 000 atsitiktinių porų (ilgiui iki 1000).  
 - Mano hash yra daug **lėtesnis** (dėl `O(n²)` bubble sort), tačiau kolizijų atžvilgiu pasirodė panašiai kaip standartiniai algoritmai.
+
+
+## Negrįžtamumo demonstracija (palyginimas su MD5 / SHA)
+Paleidus programą su failu `input/negriztamas.txt` (turinčiu tekstą `negriztamas1`), gaunami šie hash’ai:
+
+| Algoritmas   | Hash (hex) |
+|--------------|------------|
+| Custom (mano) | ea01459beb53c8fae646162629330ea571d3c8035684168e966c033052b47ee1 |
+| MD5          | 0c7e574ab62718e44053d91248d57dca |
+| SHA-1        | fb1f3c0c64be91457d950764b2336cbbac3a9fc9 |
+| SHA-256      | 6e5c9c08484cefe0b1ebef983c090620e7fdebaa062f7504124a26773f057ff5 |
+
+**Išvados:**
+- Visi algoritmai iš tos pačios įvesties duoda visiškai skirtingus rezultatus.
+- Rezultatas atrodo kaip atsitiktinis 16/20/32/64 simbolių eilutės, todėl neįmanoma atspėti pradinio teksto vien tik iš hash.
+- Mano hash yra žymiai lėtesnis nei standartiniai, tačiau irgi užtikrina negrįžtamumą.
+
