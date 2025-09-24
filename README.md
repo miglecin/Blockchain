@@ -211,3 +211,24 @@ Gauname hash: 4e73cfa552ea40a6052b481c8770d00b663d26bd2a32a502370eb811aea2190f
 - Mano sugalvotas hash paremtas **bubble sort algoritmu**, kuris nėra efektyvus. Dideliems failams skaičiavimas tampa labai lėtas.  
 - Naudojamas **deterministinis salt** (apskaičiuotas iš pačios žinutės), todėl jis neatlieka tikros atsitiktinės druskos funkcijos, kaip naudojama realiose saugumo sistemose.  
 - Teoriškai galimos **kolizijos** (skirtingos žinutės gali duoti tą patį hash), nors testuose jų beveik nepastebėta.
+
+----
+ 
+## PALYGINIMAS SU STANDARTINIAIS HASH (papildomai)
+
+### Lavinos efektas
+
+Atliktas lavinos efekto testas (10000 porų, stringo ilgis = 20), palyginant mano hash su MD5, SHA-1 ir SHA-256.
+
+Rezultatai:
+
+| Algoritmas   | Hex lygmuo (vidurkis) |
+|--------------|------------------------|
+| Mano hash    | ~85.4%                 |
+| MD5          | ~93.7%                 |
+| SHA-1        | ~93.7%                 |
+| SHA-256      | ~93.8%                 |
+
+**Išvados:**  
+- Mano hash parodo lavinos efektą, bet jis silpnesnis ir mažiau stabilus.  
+- Standartiniai hash algoritmai (MD5, SHA-1, SHA-256) pasižymi labai stipriu lavinos efektu (~94%).  idealiam lavinos efektu (~94%).  
