@@ -1,9 +1,143 @@
-Input file: input/negriztamas.txt
+=== empty.txt ===
+Input file: /Users/miglecincikaite/Desktop/blockchain/hash/input/empty.txt
+Original (from file): 
+
+Generated salt (hex): 0a000000000000000000000000000000
+Custom hash (256-bit hex): eb602ba9a9b2899259e128f76ccc2662690121fad4492a689e0d71a415162977
+Hash calculation time: 0.002206 ms
+MD5: 68b329da9893e34099c7d8ad5cb9c940
+SHA-1: adc83b19e793491b1c6ea0fd8b46cd9f32e592fc
+SHA-256: 01ba4719c80b6fe911b091a7c05124b64eeece964e09c058ef8f9805daca546b
+
+
+=== negriztamas.txt ===
+Input file: /Users/miglecincikaite/Desktop/blockchain/hash/input/negriztamas.txt
 Original (from file): negriztamas1
 Generated salt (hex): 6e7281999dbbc2bcd5d6f5c000000000
-Custom hash (256-bit hex): ea01459beb53c8fae646162629330ea571d3c8035684168e966c033052b47ee1
-Hash calculation time: 0.006923 ms
+Custom hash (256-bit hex): 910110a39506401c8d17cdbb7486a41fb7bf51e612e832552243b2972d7ebb24
+Hash calculation time: 0.006135 ms
 MD5: 0c7e574ab62718e44053d91248d57dca
 SHA-1: fb1f3c0c64be91457d950764b2336cbbac3a9fc9
 SHA-256: 6e5c9c08484cefe0b1ebef983c090620e7fdebaa062f7504124a26773f057ff5
+
+
+=== one_a.txt ===
+Input file: /Users/miglecincikaite/Desktop/blockchain/hash/input/one_a.txt
+Original (from file): a
+Generated salt (hex): 61000000000000000000000000000000
+Custom hash (256-bit hex): 461f0ff27b21fef95c25e770413891657cd838112d4970a525ad39d7456f59d1
+Hash calculation time: 0.001602 ms
+MD5: 0cc175b9c0f1b6a831c399e269772661
+SHA-1: 86f7e437faa5a7fce15d1ddcb9eaeaea377667b8
+SHA-256: ca978112ca1bbdcafac231b39a23dc4da786eff8147c4e72b9807785afee48bb
+
+
+=== one_b.txt ===
+Input file: /Users/miglecincikaite/Desktop/blockchain/hash/input/one_b.txt
+Original (from file): b
+Generated salt (hex): 62000000000000000000000000000000
+Custom hash (256-bit hex): 06d9954a7695b536c89848f3498b3fc2e5c977e9e653af0b816dca8d3401388d
+Hash calculation time: 0.001637 ms
+MD5: 92eb5ffee6ae2fec3ad71c777531578f
+SHA-1: e9d71f5ee7c92d6dc9e92ffdad17b8bd49418f98
+SHA-256: 3e23e8160039594a33894f6564e1b1348bbd7a0088d42c4acb73eeaed59c009d
+
+
+=== random1.txt ===
+Input file: /Users/miglecincikaite/Desktop/blockchain/hash/input/random1.txt
+Original (from file): eTX0BiqN2C9OmywqKkf7Gd6vzE3rsZxWMh8JpF1jYLt5VRnbcPo4alUeQSgHZDKiR7XjB2fmN9q0T6wCyvM8kpFo3drzE5shW1G7VnbxLPyQ4UjKcO2iZfTqS0RmHD8ez5aMgkN3WYlJXpVtF6Q7D9hUo1sCwAyEZR2v8LbmKj5xPfnG0dz3TiXq4H7VckN6F1R8lYyQpUjM2hS9aZ0wo3GEdB5vLnK7fTqP8rxC4DmF1Jp9XyQ2UhZ6aVtM0o7gN5bW3iK8zHcS4Rj1L9qf2PeXyD0Tk6UvM3w7nC5Zo8H1BR2h9aVJ4pN0sF3GqX6yL8dK7Wj5mT2oP1z9QvU4gR0cA6bxH5iY7Ew3Sf2nM8Dk1lZp9Vt0oN4jQ6rC7uF5yP2X8gW3
+Generated salt (hex): fabde58cc9fd792d45eb88b3380ffe7b
+Custom hash (256-bit hex): 0fcddd68fef617371aae21d68c23fa25df0eb9bf033be37f6c0262dbc5df0c52
+Hash calculation time: 1.64705 ms
+MD5: 1c6388d3bb74b75b7a4e1b55039c3b8c
+SHA-1: 552e72ecea7103e4dcdcaba933984199404c848b
+SHA-256: c117145c59a0d1b98320ee34835259721df43c6f3f0ca69cbb2b1d76809c4491
+
+
+=== random2.txt ===
+Input file: /Users/miglecincikaite/Desktop/blockchain/hash/input/random2.txt
+Original (from file): aTX0BiqN2C9OmywqKkf7Gd6vzE3rsZxWMh8JpF1jYLt5VRnbcPo4alUeQSgHZDKiR7XjB2fmN9q0T6wCyvM8kpFo3drzE5shW1G7VnbxLPyQ4UjKcO2iZfTqS0RmHD8ez5aMgkN3WYlJXpVtF6Q7D9hUo1sCwAyEZR2v8LbmKj5xPfnG0dz3TiXq4H7VckN6F1R8lYyQpUjM2hS9aZ0wo3GEdB5vLnK7fTqP8rxC4DmF1Jp9XyQ2UhZ6aVtM0o7gN5bW3iK8zHcS4Rj1L9qf2PeXyD0Tk6UvM3w7nC5Zo8H1BR2h9aVJ4pN0sF3GqX6yL8dK7Wj5mT2oP1z9QvU4gR0cA6bxH5iY7Ew3Sf2nM8Dk1lZp9Vt0oN4jQ6rC7uF5yP2X8gW3
+Generated salt (hex): f6bde58cc9fd792d45eb88b3380ffe7b
+Custom hash (256-bit hex): fb9737437a937fafa8d2b0979cd0e23859acddee41c5a3ee67a8f1d8dc536971
+Hash calculation time: 1.73539 ms
+MD5: 1e2aafabff6491441c1624cfaf92a613
+SHA-1: 6710f6424b14e2c23cbe857de715599c6c56c3b5
+SHA-256: abe4edd59b8e2fe9170fa3302029342079b332ca394ccdcb3fe152ee976203f4
+
+
+=== tmp1.txt ===
+Input file: /Users/miglecincikaite/Desktop/blockchain/hash/input/tmp1.txt
+Original (from file): Lietuvos Respublikos Konstitucija įsigaliojo 1992 m. lapkričio 2 d.
+
+Generated salt (hex): 8fb97a4a88b9c9efef4e97d668091d6a
+Custom hash (256-bit hex): a399a1715077d7cfeab926e2d24dee7debff6d43e653f2dda4a86d5ea244daf6
+Hash calculation time: 0.069357 ms
+MD5: b3cfe3fd7782512d54bc6c348c3498be
+SHA-1: f04e6cf7ecf5b4cc9ab5b132016222ed628704de
+SHA-256: 13bb8356ff3612a9ae71f0b58faede2ce4469c3d1b3b56cf5ea5f8c9b56acf95
+
+
+=== tmp2.txt ===
+Input file: /Users/miglecincikaite/Desktop/blockchain/hash/input/tmp2.txt
+Original (from file): Lietuvos Respublikos Konstitucija įsigaliojo 1992 m. lapkričio 2 d.
+Skelbta: Lietuvos Aidas, 1992, Nr. 220 (1992-11-10);
+
+Generated salt (hex): 0a503b318b064a245e4481b860c2e099
+Custom hash (256-bit hex): 2f7b1a41c936fa1ed7bc4f6d01e15378115babb058dae4ab7d4d2c7cc3b1dee9
+Hash calculation time: 0.194998 ms
+MD5: 1c00902cf88c6bf4c738b8df21229fe1
+SHA-1: d4beb2737a05c097ae94dec33aa7d327f01f00b2
+SHA-256: e1ec23780c5fa07e38afac1e0f6e74743b812f1f9b28389f4b8b2d0e31d0ae47
+
+
+=== tmp3.txt ===
+Input file: /Users/miglecincikaite/Desktop/blockchain/hash/input/tmp3.txt
+Original (from file): Lietuvos Respublikos Konstitucija įsigaliojo 1992 m. lapkričio 2 d.
+Skelbta: Lietuvos Aidas, 1992, Nr. 220 (1992-11-10);
+Valstybės Žinios, 1992, Nr. 33-1014 (1992-11-30)
+Konstitucijos sudedamoji dalis
+
+Generated salt (hex): 4ec86568d96957748bd6561703e671a5
+Custom hash (256-bit hex): f895cfb8d7944d4b82f7279c921f054799f634666b08193bfab5adee3e10a5ea
+Hash calculation time: 0.475415 ms
+MD5: 1909dc1fc38673b279183551297cd022
+SHA-1: b5ea6b97da32bfca84881da43b7722436a0625fa
+SHA-256: a996d6aabb0b4962be7ac5f26481d828d88bf6f7b4621213554cc41662ee7223
+
+
+=== tmp4.txt ===
+Input file: /Users/miglecincikaite/Desktop/blockchain/hash/input/tmp4.txt
+Original (from file): Lietuvos Respublikos Konstitucija įsigaliojo 1992 m. lapkričio 2 d.
+Skelbta: Lietuvos Aidas, 1992, Nr. 220 (1992-11-10);
+Valstybės Žinios, 1992, Nr. 33-1014 (1992-11-30)
+Konstitucijos sudedamoji dalis
+Turinys
+(Lietuvos Respublikos piliečių priimta 1992 m. spalio 25 d. referendume)
+
+Generated salt (hex): 6dc769a77fd8ca5386399f10c576f273
+Custom hash (256-bit hex): 256af49b7ca6bb87c95368020fab3eccb64dcbcd711111de549906a96604214d
+Hash calculation time: 0.765142 ms
+MD5: e74d4b5ffa38f774a41da381c124a747
+SHA-1: 5dfb597de92cf0e97d229a3187371a04916b0343
+SHA-256: 509af8a6b418cb1cde8b6e6e482c3bd188f48ca12f08f496ee0d666703379c96
+
+
+=== tmp5.txt ===
+Input file: /Users/miglecincikaite/Desktop/blockchain/hash/input/tmp5.txt
+Original (from file): Lietuvos Respublikos Konstitucija įsigaliojo 1992 m. lapkričio 2 d.
+Skelbta: Lietuvos Aidas, 1992, Nr. 220 (1992-11-10);
+Valstybės Žinios, 1992, Nr. 33-1014 (1992-11-30)
+Konstitucijos sudedamoji dalis
+Turinys
+(Lietuvos Respublikos piliečių priimta 1992 m. spalio 25 d. referendume)
+LIETUVIŲ TAUTA
+– prieš daugelį amžių sukūrusi Lietuvos valstybę,
+
+Generated salt (hex): 53b39a25cb1417443fc6a3e72d2b5d89
+Custom hash (256-bit hex): 37a88d93b0b337195cc63b5025bd40e8f42cfe9706528e5c88c975a09f00eac5
+Hash calculation time: 1.19285 ms
+MD5: 9bf929e190a6f24648d4df9988532927
+SHA-1: a96e73da677de3ca18f82c2441dad9ea1d9b42fd
+SHA-256: 800c0ca69a048af5408deb58a159939ce08885d07fa7d6bda3754599507bdf88
+
 

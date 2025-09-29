@@ -3,7 +3,7 @@ CXXFLAGS = -Wall -Iinclude -Wno-deprecated-declarations -I/usr/local/opt/openssl
 LDFLAGS = -L/usr/local/opt/openssl@3/lib -lcrypto
 TARGET = hash_program
 
-SRCS = src/main.cpp src/hash.cpp
+SRCS = src/main.cpp src/hash.cpp src/ai.cpp
 OBJS = $(SRCS:.cpp=.o)
 
 all: $(TARGET)

@@ -1,4 +1,5 @@
 #include "hash.h"
+#include "ai.h"
 #include <sstream>
 #include <iomanip>
 #include <utility>
@@ -10,15 +11,21 @@ std::array<uint32_t, 8> bubble_sort_and_hash(std::vector<char>& arr, std::array<
     for (int i = 0; i < n - 1; ++i) {
         for (int j = 0; j < n - 1 - i; ++j) {
             if (arr[j] > arr[j+1]) {
-                //kai sukeiciam elemntus, atnaujinam hash
+                // paimam dviejų elementų reikšmes (unsigned, kad nebūtų neigiamų)
                 unsigned int a = (unsigned char)arr[j];
                 unsigned int b = (unsigned char)arr[j+1];
 
-                int idx = j % 8; //pasirenkam, kuri 32-bit bloka keisti
-                seed[idx] = (seed[idx] << 5) + (seed[idx] >> 3) + (a * 17 + b * 31 + j * 13);
+                int idx = j % 8; // pasirenkam, kurį iš 8 (32-bit) blokų keisim
 
-                std::swap(arr[j], arr[j+1]);
-            }
+                // kombinuojam reikšmes
+                uint32_t val = (a * 17u + b * 31u + j * 13u);
+
+                // permaišom su rotacija ir mix32
+                seed[idx] = mix32(seed[idx] ^ rotl32(val, j % 31));
+
+                // sukeičiam elementus kaip bubble sort
+                 std::swap(arr[j], arr[j+1]);
+                }
         }
     }
     return seed;
