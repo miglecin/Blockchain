@@ -280,3 +280,28 @@ Paleidus programą su failu `input/negriztamas.txt` (turinčiu tekstą `negrizta
 - Rezultatas atrodo kaip atsitiktinis 16/20/32/64 simbolių eilutės, todėl neįmanoma atspėti pradinio teksto vien tik iš hash.
 - Mano hash yra žymiai lėtesnis nei standartiniai, tačiau irgi užtikrina negrįžtamumą.
 
+## AI pagerinimai
+
+Naudodama AI įrankius (ChatGPT), patobulinau savo realizaciją:
+
+1. **Patobulintas seed maišymas**  
+   - Vietoj paprasto poslinkio (`(seed << 5) + (seed >> 3) + ...`) įdiegiau `mix32` funkciją  
+   - Ji paremta MurmurHash3 `fmix32` algoritmu ir užtikrina gerą **avalanche efektą**  
+   - Vieno bito pakeitimas įėjime paveikia daug išėjimo bitų
+
+2. **Bitų rotacija (`rotl32`)**  
+   - Įdėjau rotacijos operaciją, kad papildomai chaotiškai sumaišytų bitus  
+   - Sumažina kolizijų tikimybę ir pagerina difuziją
+
+3. **Salt integracija į seed**  
+   - Salt dabar naudojamas ne tik kaip papildomi duomenys, bet ir XOR’inamas į pradinį `seed`  
+   - Užtikrina, kad du vienodi failai su skirtingu salt turės visiškai skirtingą hash
+
+4. **Struktūros tvarkymas**  
+   - Sukūriau atskirus failus:  
+     - `ai.h` ir `ai.cpp` – helper funkcijos (`mix32`, `rotl32`) 
+
+## Rezultatas
+- Hash funkcija dabar turi žymiai stipresnį **avalanche efektą**  
+- Pagerinta apsauga nuo kolizijų  
+
