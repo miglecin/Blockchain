@@ -64,7 +64,7 @@ Rezultatai:
 
 **Išvados:**  
 - Mano hash parodo lavinos efektą, bet jis silpnesnis ir mažiau stabilus.  
-- Standartiniai hash algoritmai (MD5, SHA-1, SHA-256) pasižymi labai stipriu lavinos efektu (~94%).  idealiam lavinos efektu (~94%).  
+- Standartiniai hash algoritmai (MD5, SHA-1, SHA-256) pasižymi labai stipriu lavinos efektu (~94%).   
 
 ### Kolizijų paieška ir sparta
 
