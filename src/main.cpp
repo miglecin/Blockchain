@@ -79,7 +79,7 @@ int main(int argc, char** argv) {
     (uint32_t)(unsigned char)msg.back() * 8910,  //paskutinio simbolio ASCII * konstanta
     (uint32_t)(msg.length() << 16) ^ 0xDEAD,     //ilgis pastumtas
     0xAAAAAAAAu ^ (uint32_t)msg.length(),        //XOR su ilgiu
-    0x55555555u + (uint32_t)msg.length(),        // ita konstanta
+    0x55555555u + (uint32_t)msg.length(),        //kita konstanta
     0xF0F0F0F0u ^ (unsigned char)msg[0],         //pirmo simbolio itaka
     0x0F0F0F0Fu ^ (unsigned char)msg.back()      //paskutinio simbolio itaka
     };
