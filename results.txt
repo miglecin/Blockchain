@@ -141,3 +141,12 @@ SHA-1: a96e73da677de3ca18f82c2441dad9ea1d9b42fd
 SHA-256: 800c0ca69a048af5408deb58a159939ce08885d07fa7d6bda3754599507bdf88
 
 
+Input file: input/negriztamas.txt
+Original (from file): abcd
+Generated salt (hex): 616f7d8b000000000000000000000000
+Custom hash (256-bit hex): a512f30ab7f0e3d7ea47a7ee8f6432c99f9c1c7549fba5bb95dc4d772acd60a2
+Hash calculation time: 0.002574 ms
+MD5: e2fc714c4727ee9395f324cd2e7f331f
+SHA-1: 81fe8bfe87576c3ecb22426f8e57847382917acf
+SHA-256: 88d4266fd4e6338d13b845fcf289579d209c897823b9217da3e161936f031589
+
