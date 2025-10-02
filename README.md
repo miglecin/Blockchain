@@ -1,213 +1,92 @@
 # Blockchain
 
-## APRAŠYMAS
-Šiame projekte realizuota paprasta **hash funkcija**, paremta:
-- **SALT generavimu** – iš pranešimo simbolių sukuriamas 16 baitų masyvas.
-- **Bubble sort** – duomenys (salt + pranešimas) rikiuojami, o kiekvieno swap metu atnaujinamas hash.
+# Hash algoritmų palyginimas (studentų darbai)
 
-Tikslas: parodyti, kaip iš paprastų veiksmų galima sukonstruoti deterministinę, fiksuoto ilgio hash funkciją.
-
----
-## ALGORITMO DETALĖS
-
-### 1. Hash atnaujinimo formulė
-Kiekvieno **swap** metu bubble sort’e hash atnaujinamas:
-```cpp
-h = (h << 3) + (h >> 2) + (a * 17 + b * 31 + j * 13)
-```
-
-kur:
-- `h` – dabartinė hash reikšmė
-- `(h << 3)` – hash pastumtas į kairę per 3 bitus (padaugintas iš 8)
-- `(h >> 2)` – hash pastumtas į dešinę per 2 bitus (padalintas iš 4)
-- `a`, `b` – sukeičiamų simbolių ASCII kodai
-- `j` – jų pozicija masyve
-- konstantos `17`, `31`, `13` – parinktos tam, kad padidintų rezultatų įvairovę
-
-### Kodėl tai svarbu?
-- Be bubble sort – hash beveik nekistų.
-- Su bubble sort – kiekvienas swap įmaišo naują informaciją, todėl hash priklauso ne tik nuo simbolių, bet ir nuo jų tvarkos.
+Šiame skyriuje pateikiami visų studentų hash funkcijų rezultatai.  
+Palyginti trys aspektai: **efektyvumas**, **atsparumas kolizijoms** ir **lavinos efektas**.
 
 ---
 
-### 2. SALT generavimas
-Salt sudaromas iš įvesties simbolių:
+## Efektyvumas
 
-```cpp
-for (size_t i = 0; i < msg.size(); i++) {
-    salt[i % 16] = (salt[i % 16] + (uint8_t)msg[i] + (i * 13)) & 0xFF;
-}
-```
+Matuotas skaičiavimo laikas (sekundėmis), priklausomai nuo eilučių kiekio.
 
-kur:
-- i % 16 – pasirenkama, kurį iš 16 salt elementų atnaujinti.
-- (uint8_t)msg[i] – simbolio ASCII reikšmė.
-- (i * 13) – priklausomybė nuo pozicijos.
-- & 0xFF – užtikrina, kad reikšmė liktų 0–255 (vienas baitas).
+| Eilučių kiekis            | Augustės ir Astridos | Benedikto ir Tauro | Eligijaus ir Povilo | Dominyko ir Marijaus | **Miglės** | Monikos | Justes | Nikitos | Andriaus ir Valentino | Nerijaus ir Igno | Nikos ir Nastios |
+| :------------------------ | :------------------: | :----------------: | :-----------------: | :------------------: | :--------: | :-----: | :-----: | :-----: | :-------------------: | :---------------: | :---------------: |
+| 1 eilutė                  | 0.000003 | 0.000051 | 0.000042 | 0.001912 | **0.000072** | 0.000691 | 0.000003 | 0.000022 | 0.000000 | 0.000172 | 0.000000 |
+| 2 eilutės                 | 0.000002 | 0.000044 | 0.000049 | 0.001764 | **0.000152** | 0.000672 | 0.000003 | 0.000017 | 0.000000 | 0.000187 | 0.000000 |
+| 4 eilutės                 | 0.000003 | 0.000052 | 0.000054 | 0.001569 | **0.000397** | 0.001482 | 0.000002 | 0.000019 | 0.000000 | 0.000308 | 0.000000 |
+| 8 eilutės                 | 0.000003 | 0.000068 | 0.000063 | 0.001557 | **0.001594** | 0.003564 | 0.000004 | 0.000024 | 0.000002 | 0.000564 | 0.001257 |
+| 16 eilučių                | 0.000006 | 0.000081 | 0.000085 | 0.001572 | **0.002066** | 0.005757 | 0.000015 | 0.000065 | 0.000003 | 0.001078 | 0.000000 |
+| 32 eilutės                | 0.000009 | 0.000094 | 0.000107 | 0.001690 | **0.004557** | 0.018003 | 0.000029 | 0.000081 | 0.000005 | 0.002669 | 0.001002 |
+| 64 eilutės                | 0.000027 | 0.000127 | 0.000426 | 0.001922 | **0.006891** | 0.039891 | 0.000056 | 0.000163 | 0.000022 | 0.006254 | 0.002071 |
+| 128 eilutės               | 0.000041 | 0.000341 | 0.000877 | 0.003004 | **0.008034** | 0.074522 | 0.000088 | 0.000399 | 0.000037 | 0.008936 | 0.004241 |
+| 256 eilutės               | 0.000198 | 0.000602 | 0.001891 | 0.003646 | **0.010019** | 0.188049 | 0.000397 | 0.000995 | 0.000106 | 0.020262 | 0.010296 |
+| 512 eilučių               | 0.000257 | 0.001296 | 0.005545 | 0.006413 | **0.012872** | 0.300145 | 0.000438 | 0.002834 | 0.000247 | 0.055744 | 0.023281 |
+| Visas failas (789 eilučių)| 0.000378 | 0.002236 | 0.006541 | 0.007956 | **0.018226** | 0.334500 | 0.000512 | 0.004237 | 0.000545 | 0.087845 | 0.063517 |
 
----
-
-## PSEUDO KODAI
-
-> **Salt generavimas**
->
-> ```text
-> FUNKCIJA MAKE_SALT(MSG):
->     SALT = {0,0,...,0}
->
->     CIKLAS i nuo 0 iki MSG_ilgis-1:
->         idx = i MOD 16
->         SALT[idx] = ( SALT[idx] + ASCII(MSG[i]) + i*13 ) MOD 256
->
->     GRĄŽINTI SALT
-> ```
-
-> **Bubble sort su hash atnaujinimu**
->
-> ```text
-> FUNKCIJA BUBBLE_SORT_AND_HASH(DATA, STATE[8]):
->     n = DATA_ilgis
->
->     CIKLAS i nuo 0 iki n-2:
->         CIKLAS j nuo 0 iki n-2-i:
->             JEI DATA[j] > DATA[j+1]:
->                 a = ASCII(DATA[j])
->                 b = ASCII(DATA[j+1])
->                 idx = j MOD 8
->
->                 STATE[idx] = (STATE[idx] << 5)
->                              + (STATE[idx] >> 3)
->                              + (a*17 + b*31 + j*13)
->
->                 sukeisti DATA[j] ir DATA[j+1]
->
->     GRĄŽINTI STATE
-> ```
-
-> **Pagrindinė programa**
->
-> ```text
-> MSG <- perskaityti visą tekstą iš failo
-> SALT <- MAKE_SALT(MSG)
->
-> DATA <- SALT || MSG   // pirmiausia salt, po to pranešimas
->
-> STATE[0..7] <- inicializuoti pagal MSG - seed
->                (ilgis, pirmas simbolis, paskutinis simbolis, konstantos)
->
-> HASH <- BUBBLE_SORT_AND_HASH(DATA, STATE)
-> ```
+**Išvada:** visi algoritmai veikia greitai, tačiau mano hash („Miglės“) yra lėtesnis dėl **bubble sort (O(n²))**.
 
 ---
 
-## EKSPERIMENTINIAI TYRIMAI
+## Atsparumas kolizijoms
 
-### Rezultatai
+Sugeneruota po 100 000 atsitiktinių porų kiekvienam ilgiui (10, 100, 500, 1000).  
 
-| Failas       | Įvestis (trumpai)                     | Hash (256-bit, 64 hex)                                                 |
-|--------------|---------------------------------------|------------------------------------------------------------------------|
-| empty.txt    | tuščias failas                        | 0002063502cf45f7057b2f840789cc4162aac918c15576bd8f0f540ae3c3c385       |
-| one_a.txt    | simbolis `a`                          | 0002c5951b40e21b352ac63c078a8ba162ab8878c156361d8f0e6c25e3c3d679       |
-| one_b.txt    | simbolis `b`                          | 0002c7c81b88cf5235b71772078a8dd462ab8aabc15638508f0e725ce3c3d66a       |
-| random1.txt  | >1000 atsitiktinių simbolių           | 872d9dcfb5e4b0351fdd173d5b47246f7210a7e4ff293ea3fe3a7fa056b942b9       |
-| random2.txt  | >1000 atsitiktinių simbolių, skiriasi 1 simboliu | 41bd2ca244096d234bdc93744192f2f7ca79ca5f4ad33a91f88e5f916fb1f514 |
+| Stringo ilgis | Augustė & Astrida | Benediktas & Tauras | Eligijus & Povilas | Dominykas & Marijus | **Miglė** | Monika | Justė | Nikita | Andrius & Valentinas | Nerijus & Ignas | Nika & Nastia |
+|---------------|:-----------------:|:-------------------:|:------------------:|:-------------------:|:---------:|:------:|:-----:|:------:|:-------------------:|:----------------:|:-------------:|
+| 10            | 0 | 0 | 0 | 0 | **0** | 0 | 0 | 0 | 0 | 0 | 0 |
+| 100           | 0 | 0 | 0 | 0 | **0** | 0 | 0 | 0 | 0 | 0 | 0 |
+| 500           | 0 | 0 | 0 | 0 | **0** | 0 | 0 | 0 | 0 | 0 | 0 |
+| 1000          | 0 | 0 | 0 | 0 | **0** | 0 | 0 | 0 | 0 | 0 | 0 |
 
----
-
-### Išvados
-- **Fiksuotas ilgis**: visų rezultatų ilgis vienodas (64 hex simboliai).  
-- **Deterministiškumas**: tas pats failas duoda tą patį hash’ą.  
-- **Lavinos efektas**: net 1 simbolio skirtumas (`random1.txt` vs `random2.txt`) kardinaliai pakeičia hash.
+**Išvada:** kolizijų nerasta nei pas mane, nei pas kitus.
 
 ---
 
-## EFEKTYVUMO TYRIMAI
+## Lavinos efektas
 
-Hash algoritmo veikimo laikas buvo pamatuotas su skirtingu eilučių kiekiu iš failo `konstitucija.txt`.  
-Kiekvienas testas kartotas 5 kartus, o žemiau pateikiamas **vidurkis**.
+Matavome, kiek skiriasi hash’ai, jei pakeičiame tik vieną simbolį.  
+Rezultatai pateikti bitų ir hex lygmenyje.
 
-| Eilučių sk. | Vidutinis laikas (ms) |
-|-------------|------------------------|
-| 1           | 0.0601                 |
-| 2           | 0.1443                 |
-| 4           | 0.3726                 |
-| 6           | 0.6232                 |
-| 8           | 1.2418                 |
+### Bitų lygmuo
 
+| Hash                       | Max | Min | Vidurkis |
+|----------------------------|:---:|:---:|:--------:|
+| Augustės ir Astridos Hash  | 84.69% | 0.00% | 49.56% |
+| Benedikto ir Tauro Hash    | 48.47% | 0.84% | 35.48% |
+| Eligijaus ir Povilo Hash   | 45.55% | 1.45% | 35.63% |
+| Dominyko ir Marijaus Hash  | 51.11% | 42.9% | 50.65% |
+| **Miglės Hash**            | 62.26% | 0.55% | **45.85%** |
+| Monikos Hash               | 33.59% | 11.32% | 21.42% |
+| Justės Hash                | 83.23% | 97.65% | 91.82% |
+| Nikitos Hash               | 89.62% | 34.19% | 53.00% |
+| Andriaus & Valentino Hash  | 65.14% | 9.33% | 36.88% |
+| Nerijaus & Igno Hash       | 63.41% | 22.88% | 49.84% |
+| Nikos & Nastios Hash       | 67.97% | 31.25% | 50.00% |
 
-![Hash algoritmo veikimo laikas](img/grafikas.png)
+### Hex lygmuo
 
-### Išvados
-- Laikas auga kvadratiniu greičiu didėjant įvesties ilgiui.  
-- Tai atitinka **Bubble Sort** algoritmą, kuris yra `O(n²)`.  
-- Net su palyginti nedideliais duomenimis (8 eilutės), laikas padidėjo ~20× lyginant su 1 eilute.
+| Hash                       | Max | Min | Vidurkis |
+|----------------------------|:---:|:---:|:--------:|
+| Augustės ir Astridos Hash  | 100% | 2.54% | 94.15% |
+| Benedikto ir Tauro Hash    | 100% | 1.15% | 82.13% |
+| Eligijaus ir Povilo Hash   | 96%  | 1.54% | 75.73% |
+| Dominyko ir Marijaus Hash  | 97.88% | 19.04% | 93.71% |
+| **Miglės Hash**            | 100% | 0.31% | **85.92%** |
+| Monikos Hash               | 100% | 50% | 81.45% |
+| Justės Hash                | 93.18% | 76.61% | 83.82% |
+| Nikitos Hash               | 100% | 0.23% | 86.13% |
+| Andriaus & Valentino Hash  | 64.45% | 48.21% | 92.74% |
+| Nerijaus & Igno Hash       | 100% | 45% | 93.24% |
+| Nikos & Nastios Hash       | 100% | 68.75% | 93.77% |
 
----
-
-## KOLIZIJŲ PAIEŠKA
-
-
-Sugeneruota po **100 000 atsitiktinių stringų porų** skirtingo ilgio (10, 100, 500, 1000 simbolių).
-Patikrinta, ar jų hash’ai sutampa.
-
-Šis eksperimentas buvo atliktas naudojant **OpenMP**.
-Kiekviena gija sugeneruodavo savo atsitiktinių stringų poras ir skaičiavo jų hash’us, o rezultatai buvo apjungti.  
-Tai ženkliai pagreitino skaičiavimus (ypač su ilgais stringais). Be OpenMP eksperimentas būtų trukęs kelis kartus ilgiau.
-
-| Ilgis (len) | Porų skaičius | Kolizijų skaičius | Kolizijų dažnis | Laikas (s) |
-|-------------|---------------|-------------------|-----------------|------------|
-| 10          | 100 000       | 0                 | 0               | 0.033      |
-| 100         | 100 000       | 0                 | 0               | 0.448      |
-| 500         | 100 000       | 0                 | 0               | 6.633      |
-| 1000        | 100 000       | 0                 | 0               | 28.005     |
-
-**Išvada:** kolizijų nerasta. Laikas auga labai sparčiai, nes bubble sort yra O(n²).
+**Išvada:** mano hash vidutiniškai turi ~46% bitų skirtumą ir ~86% hex skirtumą – tai reiškia, kad lavinos efektas veikia, nors pasitaiko ir išimčių (kartais skirtumas 0%).
 
 ---
 
-## LAVINOS EFEKTO EKSPERIMENTAS
+## Bendros išvados
 
-**Tikslas:** patikrinti, kaip pasikeičia hash rezultatas, jei įvesties eilutėje pakeičiame tik **vieną simbolį**.  
-Atlikta su **100 000 porų** (stringo ilgis = 20 simbolių).  
-
-Rezultatai:  
-
-| Matavimo lygmuo | Min  | Max    | Vidurkis |
-|-----------------|------|--------|----------|
-| Bitų lygmuo (256 bitų hash) | 0%   | 63.7%  | 45.7%   |
-| Hex lygmuo (64 simboliai)   | 0%   | 100%   | 85.7% |
-
-**Išvados:**  
-- **Bitų lygmuo (~45–50%)** rodo, kad algoritmas turi lavinos efektą – pakeitus vieną simbolį, pasikeičia apie pusė hash bitų.  
-- **Hex lygmuo (~85%)** yra didesnis, nes skaičiuojamas pagal viso hex simbolio (4 bitų) pasikeitimą – todėl jis iškreipia tikrąją statistiką.
-- **Min=0%** rodo, kad kai kuriose porose hash’ai nesiskyrė → galimos kolizijos.  
-- **Max arti 100%** rodo, kad kartais hash’ai skiriasi visiškai.
-
----
-
-## NEGRĮŽTAMUMO DEMONSTRACIJA (Hiding / Puzzle-friendliness)
-
-Paleidus programą su failu `input/negriztamas.txt` (turinčiu tekstą `negriztamas`):
-
-Gauname hash: 4e73cfa552ea40a6052b481c8770d00b663d26bd2a32a502370eb811aea2190f
-
-**Išvados:**
-- Iš hash’o neįmanoma atspėti, jog pradinis tekstas buvo `negriztamas`.  
-- Pakeitus vieną simbolį (`negriztamas1`) hash pasikeičia: ea01459beb53c8fae646162629330ea571d3c8035684168e966c033052b47ee1(lavinos efektas).  
-- Net jei turime hash ir salt, nėra greito būdo atsukti procesą ir gauti pradinį tekstą (**puzzle-friendliness**).  
-- Tai rodo **negrįžtamumą**: hash funkcija yra vienkryptė.
-
-----
-
-## IŠVADOS:
-
-### Stiprybės
-- Sukurtas hash algoritmas visada duoda tą patį rezultatą iš tos pačios įvesties, todėl jis yra patikimai **deterministinis**.  
-- Atlikti bandymai parodė aiškų **lavinos efektą** – pakeitus tik vieną simbolį, visas hash rezultatas stipriai pasikeičia.  
-- Hash išvestis atrodo kaip atsitiktinis skaičių rinkinys, todėl praktiškai **neįmanoma atspėti pradinio teksto vien tik iš hash’o**.  
-- Įmaišomas **salt** papildomai apsunkina hash atspėjimą.
-
-### Silpnybės
-- Mano sugalvotas hash paremtas **bubble sort algoritmu**, kuris nėra efektyvus. Dideliems failams skaičiavimas tampa labai lėtas.  
-- Naudojamas **deterministinis salt** (apskaičiuotas iš pačios žinutės), todėl jis neatlieka tikros atsitiktinės salt funkcijos, kaip naudojama realiose hash'uose.  
-- Teoriškai galimos **kolizijos** (skirtingos žinutės gali duoti tą patį hash), nors testuose jų beveik nepastebėta.
+- **Efektyvumas:** mano hash lėtesnis už kitus dėl bubble sort algoritmo.  
+- **Kolizijos:** kolizijų nerasta nei mano, nei kitų hash’uose.  
+- **Lavinos efektas:** mano rezultatai panašūs į klasikinius hash algoritmus – pakeitus vieną simbolį, pasikeičia apie pusė bitų.  
