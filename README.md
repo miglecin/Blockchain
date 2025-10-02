@@ -90,3 +90,10 @@ Rezultatai pateikti bitų ir hex lygmenyje.
 - **Efektyvumas:** mano hash lėtesnis už kitus dėl bubble sort algoritmo.  
 - **Kolizijos:** kolizijų nerasta nei mano, nei kitų hash’uose.  
 - **Lavinos efektas:** mano rezultatai panašūs į klasikinius hash algoritmus – pakeitus vieną simbolį, pasikeičia apie pusė bitų.  
+
+## Galutinė santrauka (Miglės Hash)
+
+- **Efektyvumas:** 7/11 → vidutinė vieta, lėtesnis už daugumą, bet ne pats lėčiausias.  
+- **Kolizijos:** 1/1 → tokia pati kaip pas kitus, kolizijų nerasta.  
+- **Lavinos efektas (bitai):** 7/11 → vidutinė vieta, ~46 %, arti idealaus 50 %.  
+- **Lavinos efektas (hex):** 6/11 → virš vidurkio, panašus į gerus rezultatus.  
